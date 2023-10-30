@@ -1,0 +1,59 @@
+<h1>books#index</h1>
+<p>Find me in app/views/books/index.html.erb</p>
+
+<main>
+  
+  <% if @book.errors.any? %>
+  <%= @book.errors.count %>errors prohibited this obj from being saved:
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+<div class='container px-5 px-sm-0'>
+<div class='row'>
+<div class='col-md-3'>
+ <%= render 'users/prof', user:@user, book:@book %>
+</div>
+
+      <div class='col-md-8 offset-md-1'>
+        <h2>Books</h2>
+        <!-- 投稿した書籍一覧表示を作成しましょう。 -->
+        
+        <table class='table table-hover table-inverse'>
+          <thead>
+            <tr>
+              <th></th>
+
+              <th>Title</th>
+            
+              <th>Opinion</th>
+           
+            </tr>
+          </thead>
+          <tbody> 
+                  <ul class="books">
+              <% @books.each do |book| %>
+             
+              <tr>
+                    
+                   <td>
+                       <%= link_to book.user do %>
+                       <%= attachment_image_tag book.user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: 'default-image.jpg' %>
+                       <% end %>
+                   </td>
+                   <td>
+                       <%= link_to book.user do %>
+                       <%= link_to book.title,  book_path(book.id)%>
+                       <% end %>
+                   </td>
+                   <td><%= book.body %></td>
+              </tr>
+                <% end %>
+              </ul>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
